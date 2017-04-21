@@ -1,15 +1,29 @@
 #!/usr/bin/env bash
 
+x=True
+if [ ! -f $2 ]
+  then
+    echo "$2 does not exist"
+    exit
+fi
 if grep -q ^$1= $2
-then
-  read -s -p 'Enter new password: ' password
-  echo ''
-  read -s -p 'Confirm password: ' check_password
-  echo ''
-  if ["$spassword" == "$scheck_password"]
-    then
-    echo "We did it"
-  fi
-else
-  echo "Config option does not exist in $2"
+  then
+    while $x; do
+      read -s -p 'Enter new password: ' password
+      echo ''
+      read -s -p 'Confirm password: ' check_password
+      echo ''
+      if [ "$password" = "$check_password" ]
+        then
+ 	  sed -i '.bak' "s/\($1=\).*$/\1$password/" $2
+ 	  echo 'Password updated'
+          exit
+        else
+          echo "Passwords do not match"
+          echo ''
+      fi 
+      done
+  else
+    echo "$1 Config option does not exist in $2"
+    exit
 fi
