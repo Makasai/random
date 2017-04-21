@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+if grep -q ^$1= $2
+then
+  read -s -p 'Enter new password: ' password
+  echo ''
+  read -s -p 'Confirm password: ' check_password
+  echo ''
+  if ["$spassword" == "$scheck_password"]
+    then
+    echo "We did it"
+  fi
+else
+  echo "Config option does not exist in $2"
+fi
