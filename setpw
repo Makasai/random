@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-x=True
 if [ ! -f $2 ]
   then
     echo "$2 does not exist"
@@ -8,7 +7,7 @@ if [ ! -f $2 ]
 fi
 if grep -q ^$1= $2
   then
-    while $x; do
+    while True; do
       read -s -p 'Enter new password: ' password
       echo ''
       read -s -p 'Confirm password: ' check_password
